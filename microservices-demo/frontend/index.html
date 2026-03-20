@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Microservices Demo</title>
+</head>
+<body>
+    <h1>Demo de Microservicos</h1>
+
+    <button onclick="fazerLogin()">Testar Login</button>
+
+    <pre id="resultado"></pre>
+
+    <script>
+        async function fazerLogin() {
+            const resultado = document.getElementById("resultado");
+
+            try {
+                const response = await fetch("http://localhost:5000/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        username: "raquel",
+                        password: "1234"
+                    })
+                });
+
+                const data = await response.json();
+                resultado.textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                resultado.textContent = "Erro ao contactar a API: " + error;
+            }
+        }
+    </script>
+</body>
+</html>
